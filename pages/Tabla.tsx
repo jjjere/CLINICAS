@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import type { RootState, AppDispatch } from '../store/store'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 const columns: GridColDef[] = [
   /*{ field: 'id', headerName: 'ID', width: 70 },*/
-  { field: 'nombre', headerName: 'Nombre', width: 200 },
-  { field: 'apellido', headerName: 'Apellido', width: 200 },
-  { field: 'mail', headerName: 'Mail', width: 200 },
-  {
-    field: 'telefono',
-    headerName: 'Telefono',
-    width: 200,
-  },
-
+  { field: 'first_name', headerName: 'Nombre', width: 200 },
+  { field: 'last_name', headerName: 'Apellido', width: 200 },
+  { field: 'email', headerName: 'Mail', width: 200 },
+  { field: 'phone_numbre', headerName: 'Numero de telefono', width: 200 },
+  { field: 'dni', headerName: 'DNI', width: 200 },
 ];
 
 const rows = [
@@ -33,10 +33,11 @@ const rows = [
 ];
 
 export default function DataTable() {
+  const donadores = useAppSelector ((state) => state.donadores)
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={rows}
+        rows={donadores}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[5]}

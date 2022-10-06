@@ -1,7 +1,11 @@
-import { congfigureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
-import donadorReducer from "../features/tasls/tasksSlice";
+import donadorReducer from "../features/donadorSlice";
 
-export const store = congfigureStore({
-    reducer : { tasks: donadorReducer },
+export const store = configureStore({
+    reducer : { donadores: donadorReducer },
 });
+
+export type RootState = ReturnType<typeof store.getState>
+
+export type AppDispatch = typeof store.dispatch
