@@ -5,6 +5,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
+
 const columns: GridColDef[] = [
   /*{ field: 'id', headerName: 'ID', width: 70 },*/
   { field: 'first_name', headerName: 'Nombre', width: 200 },

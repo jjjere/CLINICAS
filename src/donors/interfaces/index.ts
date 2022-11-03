@@ -7,7 +7,7 @@ export type DonorProps = {
   };
   
   export type Donor = DonorProps & {
-    id: number;
+    id: string;
     url: string;
   };
   
