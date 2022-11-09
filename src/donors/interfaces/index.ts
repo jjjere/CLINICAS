@@ -7,7 +7,14 @@ export type DonorProps = {
   };
   
   export type Donor = DonorProps & {
-    id: number;
+    id: string;
     url: string;
   };
+  
+  export enum StatusStateDonors {
+    loading,
+    offline,
+    online,
+    error,
+  }
   

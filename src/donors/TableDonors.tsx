@@ -7,7 +7,7 @@ import Table from "./components/Table";
 
 const TableDonors = () => {
   return (
-    <Container sx={{ my: 2 }}>
+    <Container sx={{ my: 7 }}>
       <AddButton />
       <DeleteButton />
       <Table />

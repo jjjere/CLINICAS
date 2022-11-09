@@ -2,7 +2,7 @@ import React from 'react'
 import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useAppDispatch } from '../../store/hooks';
-import { removeSelected } from
+import { removeSelected } from '../slices/donadorSlice'
 
 const DeleteButton = () => {
   const dispatch = useAppDispatch ();
@@ -24,4 +24,4 @@ const DeleteButton = () => {
   );
 };
 
-export default DeleteButton
+export default DeleteButton;

@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Donor } from "../interfaces";
 export type DonorsState = {
   values: Donor[];
-  selected: number[];
+  selected: string[];
   status: string;
 };
 
 
 const initialValues: Donor [] = [
   {
-    id: 1,
+    id: "1",
     nombre: "Rikki",
     apellido: "Speere",
     email: "rspeere0@google.cn",
@@ -18,7 +18,7 @@ const initialValues: Donor [] = [
     url: ""
   },
   {
-    id: 2,
+    id: "2",
     nombre: "Fanchette",
     apellido: "Tewkesbury.",
     email: "ftewkesbury1@howstuffworks.com",
@@ -27,7 +27,7 @@ const initialValues: Donor [] = [
     url: ""
   },
   {
-    id: 3,
+    id: "3",
     nombre: "Luigi",
     apellido: "McCollum",
     email: "lmccollum2@go.com",
@@ -49,10 +49,10 @@ const donadorSlice = createSlice({
   initialState,
   reducers: {
     addDonador: (state, action) => {
-      state.values.push(action.payload.donador);
+      state.values.push(action.payload);
     },
     editDonador: (state, action) => {
-      const { id, nombre, apellido, email, telefono, dni } = action.payload.donador;
+      const { id, nombre, apellido, email, telefono, dni } = action.payload;
       const foundDonador = state.values.find((donador) => donador.id === id);
       if (foundDonador) {
         foundDonador.nombre = nombre;
@@ -60,7 +60,7 @@ const donadorSlice = createSlice({
     },
     deleteDonadorTask: (state, action) => {
       const foundDonador = state.values.find(
-        (donador) => donador.id === action.payload.donador
+        (donador) => donador.id === action.payload
       );
       if (foundDonador) {
         state.values.splice(state.values.indexOf(foundDonador), 1);
