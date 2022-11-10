@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import estilos from "./info.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import Form from "./FormAddDonors";
+import { PlusOne } from "@mui/icons-material"
 
 const style = {
   position: "absolute",
@@ -28,12 +29,14 @@ export default function AddButon() {
   return (
     <>
       <Button
+        startIcon={<PlusOne/>}
+        
         onClick={handleOpen}
         className={estilos.botonAdd}
-        color="secondary"
+        color="inherit"
         aria-label="add"
       >
-        Agregar Donador
+        Agregar 
       </Button>
 
       <Modal

@@ -1,9 +1,10 @@
 .botonAdd {
     font-size: 12px;
-    margin-top: -73px;
     flex-direction: column;
-    color: blue;
+    color: gray;
     margin-left: 23px;
+    display: contents;
+    align-items: center;
   }
   .boton2 {
     display: flex;

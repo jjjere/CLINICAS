@@ -11,6 +11,7 @@ import estilos from "./info.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { addDonador } from "../slices/donadorSlice";
 import { useAppDispatch } from "../../store/hooks";
+import { add } from"../thunks/index"
 
 function FormAddDonors({ close }: { close: () => void }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ function FormAddDonors({ close }: { close: () => void }): JSX.Element {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
-      addDonador({
+      add({
         ...donor,
         id: uuidv4(),
       })

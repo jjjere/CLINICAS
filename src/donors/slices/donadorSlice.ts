@@ -1,13 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Donor } from "../interfaces";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import donors from "../../../pages/donors";
+import { Donor, StatusStateDonors } from "../interfaces";
+import { add, set, remove } from "../thunks/index"
 export type DonorsState = {
   values: Donor[];
   selected: string[];
-  status: string;
+  status: StatusStateDonors;
 };
 
 
-const initialValues: Donor [] = [
+const initialValues: Donor[] = [
   {
     id: "1",
     nombre: "Rikki",
@@ -33,7 +35,7 @@ const initialValues: Donor [] = [
     email: "lmccollum2@go.com",
     telefono: "988-930-3409",
     dni: "55-962-7341",
-    url:""
+    url: ""
   },
 
 ];
@@ -41,7 +43,7 @@ const initialValues: Donor [] = [
 const initialState: DonorsState = {
   values: initialValues,
   selected: [],
-  status: "loading", //can be "loading", "online", "error"
+  status: StatusStateDonors.loading //can be "loading", "online", "error"
 };
 
 const donadorSlice = createSlice({
@@ -66,8 +68,8 @@ const donadorSlice = createSlice({
         state.values.splice(state.values.indexOf(foundDonador), 1);
       }
     },
-    removeSelected: (state) =>{
-      return{
+    removeSelected: (state) => {
+      return {
         ...state,
         values: state.values.filter(
           (value) => !state.selected.includes(value.id)
@@ -75,11 +77,59 @@ const donadorSlice = createSlice({
       };
     },
     selectDonors: (state, action) => {
-      return{
+      return {
         ...state,
         selected: action.payload,
       };
-    },    
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(set.fulfilled, (state, action: PayloadAction<Donor[]>) => {
+      const { payload: donors } = action;
+      return {
+        ...state,
+        values: donors,
+        status: StatusStateDonors.online,
+      };
+    });
+    builder.addCase(set.rejected, (state) => {
+      return {
+        ...state,
+        status: StatusStateDonors.error,
+      };
+    });
+    builder.addCase(set.pending, (state) => {
+      return {
+        ...state,
+        status: StatusStateDonors.loading,
+      };
+    });
+    builder.addCase(add.fulfilled, (state, action: PayloadAction<Donor>) => {
+      const { payload: donor } = action;
+      const exist = state.values.some((a) => a.id === donor.id);
+      return {
+        ...state,
+        values: exist ? state.values : [donor, ...state.values],
+      };
+    });
+    builder.addCase(
+      remove.fulfilled,
+      (state, action: PayloadAction<number>) => {
+        const { payload: removed } = action;
+        const { values, selected } = state;
+        const opCompleted = removed === state.selected.length;
+        return opCompleted
+          ? {
+            ...state,
+            values: values.filter((donor) => !selected.includes(donor.id)),
+            selected: [],
+          }
+          : {
+            ...state,
+            status: StatusStateDonors.error,
+          };
+      }
+    );
   },
 });
 
